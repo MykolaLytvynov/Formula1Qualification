@@ -19,19 +19,13 @@ public class Racers implements Comparable<Racers> {
     private Duration bestTime;
 
 
-    public Racers(String abbreviations, String name, String auto, String startTime, String endTime) {
+    public Racers(String abbreviations, String name, String auto, LocalDateTime startTime, LocalDateTime endTime, Duration bestTime) {
         this.abbreviations = abbreviations;
         this.name = name;
         this.auto = auto;
-        try {
-            this.startTime = formatTime.parse(startTime).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-            this.endTime = formatTime.parse(endTime).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-
-        bestTime = Duration.between(this.startTime, this.endTime);
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.bestTime = bestTime;
     }
 
     public String getAbbreviations() {
@@ -71,6 +65,5 @@ public class Racers implements Comparable<Racers> {
                 return 1;
         }
     }
-
 }
 
