@@ -26,6 +26,5 @@ public class Q1Stage {
         return resultOfFirstStage;
     }
 
-
 }
 

@@ -8,10 +8,9 @@ import static ua.com.foxminded.formula1qualification.Constants.TIME_FORMAT;
 
 public class GetResultOfFirstStage {
 
-    public String getResultOfFirstStage (List<Racers> listRacers) {
+    public String getResultOfFirstStage(List<Racers> listRacers) {
 
         Collections.sort(listRacers);
-
         String resultOfFirstStage = "";
 
         for (Racers racers : listRacers) {

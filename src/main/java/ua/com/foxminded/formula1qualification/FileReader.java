@@ -27,14 +27,12 @@ public class FileReader {
         }
 
         if (!file.canRead()) {
-            throw new FileNotFoundException ("File " + pathFile +": cannot be read");
+            throw new FileNotFoundException("File " + pathFile + ": cannot be read");
         }
 
         if (file.length() == 0) {
             throw new NullPointerException("File " + pathFile + ": is Empty");
         }
-
-
 
     }
 

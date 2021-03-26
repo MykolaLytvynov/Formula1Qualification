@@ -52,7 +52,6 @@ public class Racers implements Comparable<Racers> {
         return bestTime;
     }
 
-
     @Override
     public int compareTo(Racers racer) {
 

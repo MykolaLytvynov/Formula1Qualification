@@ -72,7 +72,8 @@ public class RacerBuilder {
         }
     }
 
-    private Duration getBestTime (String racer) {
+
+    private Duration getBestTime(String racer) {
         return Duration.between(START_TIME_BEST_LAP.get(racer), END_TIME_BEST_LAP.get(racer));
     }
 
