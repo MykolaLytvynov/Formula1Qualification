@@ -6,7 +6,7 @@ import java.util.List;
 
 import static ua.com.foxminded.formula1qualification.Constants.TIME_FORMAT;
 
-public class GetResultOfFirstStage {
+public class ResultOfFirstStageFormatter {
 
     public String getResultOfFirstStage(List<Racers> listRacers) {
 

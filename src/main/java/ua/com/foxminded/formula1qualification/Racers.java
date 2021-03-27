@@ -15,7 +15,6 @@ public class Racers implements Comparable<Racers> {
     private String auto;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private SimpleDateFormat formatTime = new SimpleDateFormat("yyyy-MM-dd_hh:mm:ss.SSS");
     private Duration bestTime;
 
 

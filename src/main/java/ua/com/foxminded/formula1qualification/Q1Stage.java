@@ -3,7 +3,6 @@ package ua.com.foxminded.formula1qualification;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class Q1Stage {
 
@@ -19,7 +18,7 @@ public class Q1Stage {
         RacerBuilder racerBuilder = new RacerBuilder();
         List<Racers> racersList = racerBuilder.createRacers(startFileStream, endFileStream, abbreviationsFileStream);
 
-        GetResultOfFirstStage getResultOfFirstStage = new GetResultOfFirstStage();
+        ResultOfFirstStageFormatter getResultOfFirstStage = new ResultOfFirstStageFormatter();
         String resultOfFirstStage = getResultOfFirstStage.getResultOfFirstStage(racersList);
 
 
