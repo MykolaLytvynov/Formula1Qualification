@@ -1,14 +1,12 @@
 package ua.com.foxminded.formula1qualification;
 
-import java.text.ParseException;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.time.format.DateTimeParseException;
 import java.util.HashMap;
+import java.util.IllegalFormatException;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import static ua.com.foxminded.formula1qualification.Constants.*;
@@ -20,7 +18,7 @@ public class RacerBuilder {
     private static final int NAME = 1;
     private static final int AUTO = 2;
 
-    public List<Racers> createRacers(List<String> startFileList, List<String> endFileList, List<String> abbreviationsFileList) {
+    public List<Racer> createRacers(List<String> startFileList, List<String> endFileList, List<String> abbreviationsFileList) {
 
         startFileList.stream().peek(this::checkTimeValidate)
                 .map(line -> line.split(LINE_SPLIT_FOR_FILES_WITH_TIME))
@@ -30,9 +28,9 @@ public class RacerBuilder {
                 .map(line -> line.split(LINE_SPLIT_FOR_FILES_WITH_TIME))
                 .forEach(part -> endTimeBestLap.put(part[0], getTime(part[1])));
 
-        List<Racers> listRacers = abbreviationsFileList.stream().peek(this::checkAbbreviationsValidate)
+        List<Racer> listRacers = abbreviationsFileList.stream().peek(this::checkAbbreviationsValidate)
                 .map(line -> line.split("_"))
-                .map(part -> new Racers(part[ABBREVIATION], part[NAME], part[AUTO], startTimeBestLap.get(part[ABBREVIATION]), endTimeBestLap.get(part[ABBREVIATION]), getBestTime(part[ABBREVIATION])))
+                .map(part -> new Racer(part[ABBREVIATION], part[NAME], part[AUTO], startTimeBestLap.get(part[ABBREVIATION]), endTimeBestLap.get(part[ABBREVIATION]), getBestTime(part[ABBREVIATION])))
                 .collect(Collectors.toList());
 
         return listRacers;
@@ -53,15 +51,20 @@ public class RacerBuilder {
         if (arrayForCheck.length != 3) {
             throw new IllegalArgumentException("Format Abbreviations (" + lineForCheck + "): does not match");
         }
+        if (arrayForCheck[0].length() != 3) {
+            throw new IllegalArgumentException("List of abbreviations must start with abbreviations");
+        }
     }
 
     private LocalDateTime getTime(String time) {
-
         LocalDateTime dateTime = null;
-        dateTime = LocalDateTime.parse(time, DATE_AND_TIME_FORMAT);
+        try {
+            dateTime = LocalDateTime.parse(time, DATE_AND_TIME_FORMAT);
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("Impossible time");
+        }
         return dateTime;
     }
-
 
     private Duration getBestTime(String racer) {
         return Duration.between(startTimeBestLap.get(racer), endTimeBestLap.get(racer));

@@ -1,15 +1,10 @@
 package ua.com.foxminded.formula1qualification;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.temporal.Temporal;
-import java.util.Date;
+import java.util.Objects;
 
-public class Racers implements Comparable<Racers> {
+public class Racer implements Comparable<Racer> {
     private String abbreviations;
     private String name;
     private String auto;
@@ -18,7 +13,7 @@ public class Racers implements Comparable<Racers> {
     private Duration bestTime;
 
 
-    public Racers(String abbreviations, String name, String auto, LocalDateTime startTime, LocalDateTime endTime, Duration bestTime) {
+    public Racer(String abbreviations, String name, String auto, LocalDateTime startTime, LocalDateTime endTime, Duration bestTime) {
         this.abbreviations = abbreviations;
         this.name = name;
         this.auto = auto;
@@ -52,7 +47,7 @@ public class Racers implements Comparable<Racers> {
     }
 
     @Override
-    public int compareTo(Racers racer) {
+    public int compareTo(Racer racer) {
 
         if (this.getBestTime().toMillis() == racer.getBestTime().toMillis())
             return 0;
@@ -63,5 +58,20 @@ public class Racers implements Comparable<Racers> {
                 return 1;
         }
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Racer racer = (Racer) o;
+        return abbreviations.equals(racer.abbreviations) && name.equals(racer.name) && auto.equals(racer.auto) && startTime.equals(racer.startTime) && endTime.equals(racer.endTime) && bestTime.equals(racer.bestTime);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(abbreviations, name, auto, startTime, endTime, bestTime);
+    }
+
+
 }
 
