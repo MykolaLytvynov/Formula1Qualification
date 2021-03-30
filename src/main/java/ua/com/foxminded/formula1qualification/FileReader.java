@@ -31,7 +31,7 @@ public class FileReader {
         }
 
         if (file.length() == 0) {
-            throw new NullPointerException("File " + pathFile + ": is Empty");
+            throw new IllegalArgumentException("File " + pathFile + ": is Empty");
         }
 
     }

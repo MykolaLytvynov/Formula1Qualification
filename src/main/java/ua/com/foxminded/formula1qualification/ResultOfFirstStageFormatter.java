@@ -56,7 +56,7 @@ public class ResultOfFirstStageFormatter {
 
     private void cheakForEmptyCollection(List<Racer> listRacers) {
         if (listRacers.size() == 0) {
-            throw new NullPointerException("Riders collection is empty");
+            throw new IllegalArgumentException("Riders collection is empty");
         }
     }
 

@@ -1,6 +1,5 @@
 package ua.com.foxminded.formula1qualification;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -14,23 +13,21 @@ import static ua.com.foxminded.formula1qualification.Constants.DATE_AND_TIME_FOR
 
 class RacerBuilderTest {
 
-    RacerBuilder startValuesForCreateRacersTest;
-
-    @BeforeEach
-    void newObjectForCreateRacersTest() {
-        startValuesForCreateRacersTest = new RacerBuilder();
-    }
+    RacerBuilder objectForTest = new RacerBuilder();
 
     @Test
     @DisplayName("All valid lines in all 3 files")
     void createRacersShouldReturnCollectionRacersWhenAllValidLinesInAll3Files() {
+        LocalDateTime startTimeOfSvf = LocalDateTime.parse("2018-05-24_12:02:58.917", DATE_AND_TIME_FORMAT);
+        LocalDateTime endTimeOfSvf = LocalDateTime.parse("2018-05-24_12:04:03.332", DATE_AND_TIME_FORMAT);
+        LocalDateTime startTimeOfNhr = LocalDateTime.parse("2018-05-24_12:02:49.914", DATE_AND_TIME_FORMAT);
+        LocalDateTime endTimeOfNhr = LocalDateTime.parse("2018-05-24_12:04:02.979", DATE_AND_TIME_FORMAT);
 
-        List<Racer> racerListForExample = new ArrayList<Racer>();
-        Racer Svf = new Racer("SVF", "Sebastian Vettel", "FERRARI", LocalDateTime.parse("2018-05-24_12:02:58.917", DATE_AND_TIME_FORMAT), LocalDateTime.parse("2018-05-24_12:04:03.332", DATE_AND_TIME_FORMAT), Duration.parse("PT1M4.415S"));
-        Racer Nhr = new Racer("NHR", "Nico Hulkenberg", "RENAULT", LocalDateTime.parse("2018-05-24_12:02:49.914", DATE_AND_TIME_FORMAT), LocalDateTime.parse("2018-05-24_12:04:02.979", DATE_AND_TIME_FORMAT), Duration.parse("PT1M13.065S"));
-
-        racerListForExample.add(Svf);
-        racerListForExample.add(Nhr);
+        List<Racer> expectedList = new ArrayList<Racer>();
+        Racer svf = new Racer("SVF", "Sebastian Vettel", "FERRARI", startTimeOfSvf, endTimeOfSvf, Duration.parse("PT1M4.415S"));
+        Racer nhr = new Racer("NHR", "Nico Hulkenberg", "RENAULT", startTimeOfNhr, endTimeOfNhr, Duration.parse("PT1M13.065S"));
+        expectedList.add(svf);
+        expectedList.add(nhr);
 
         List<String> startFileListForExample = new ArrayList<>();
         startFileListForExample.add("SVF2018-05-24_12:02:58.917");
@@ -44,9 +41,9 @@ class RacerBuilderTest {
         abbreviationsFileListForExample.add("SVF_Sebastian Vettel_FERRARI");
         abbreviationsFileListForExample.add("NHR_Nico Hulkenberg_RENAULT");
 
-        List<Racer> resultRacerList = startValuesForCreateRacersTest.createRacers(startFileListForExample, endFileListForExample, abbreviationsFileListForExample);
+        List<Racer> resultList = objectForTest.createRacers(startFileListForExample, endFileListForExample, abbreviationsFileListForExample);
 
-        assertEquals(true, racerListForExample.equals(resultRacerList));
+        assertEquals(true, expectedList.equals(resultList));
     }
 
     @Test
@@ -65,7 +62,7 @@ class RacerBuilderTest {
         abbreviationsFileListForExample.add("SVF_Sebastian Vettel_FERRARI");
         abbreviationsFileListForExample.add("NHR_Nico Hulkenberg_RENAULT");
 
-        assertThrows(IllegalArgumentException.class, () -> startValuesForCreateRacersTest.createRacers(startFileListForExample, endFileListForExample, abbreviationsFileListForExample));
+        assertThrows(IllegalArgumentException.class, () -> objectForTest.createRacers(startFileListForExample, endFileListForExample, abbreviationsFileListForExample));
     }
 
     @Test
@@ -84,7 +81,7 @@ class RacerBuilderTest {
         abbreviationsFileListForExample.add("SVF_Sebastian Vettel_FERRARI");
         abbreviationsFileListForExample.add("NHR_Nico Hulkenberg_RENAULT");
 
-        assertThrows(IllegalArgumentException.class, () -> startValuesForCreateRacersTest.createRacers(startFileListForExample, endFileListForExample, abbreviationsFileListForExample));
+        assertThrows(IllegalArgumentException.class, () -> objectForTest.createRacers(startFileListForExample, endFileListForExample, abbreviationsFileListForExample));
     }
 
     @Test
@@ -103,7 +100,7 @@ class RacerBuilderTest {
         abbreviationsFileListForExample.add("SVF_FERRARI");
         abbreviationsFileListForExample.add("NHR_Nico Hulkenberg_RENAULT");
 
-        assertThrows(IllegalArgumentException.class, () -> startValuesForCreateRacersTest.createRacers(startFileListForExample, endFileListForExample, abbreviationsFileListForExample));
+        assertThrows(IllegalArgumentException.class, () -> objectForTest.createRacers(startFileListForExample, endFileListForExample, abbreviationsFileListForExample));
     }
 
     @Test
@@ -122,7 +119,7 @@ class RacerBuilderTest {
         abbreviationsFileListForExample.add("SVF_FERRARI");
         abbreviationsFileListForExample.add("NHR_Nico Hulkenberg_RENAULT");
 
-        assertThrows(IllegalArgumentException.class, () -> startValuesForCreateRacersTest.createRacers(startFileListForExample, endFileListForExample, abbreviationsFileListForExample));
+        assertThrows(IllegalArgumentException.class, () -> objectForTest.createRacers(startFileListForExample, endFileListForExample, abbreviationsFileListForExample));
     }
 
     @Test
@@ -141,7 +138,7 @@ class RacerBuilderTest {
         abbreviationsFileListForExample.add("SVF_FERRARI");
         abbreviationsFileListForExample.add("NHR_Nico Hulkenberg_RENAULT");
 
-        assertThrows(IllegalArgumentException.class, () -> startValuesForCreateRacersTest.createRacers(startFileListForExample, endFileListForExample, abbreviationsFileListForExample));
+        assertThrows(IllegalArgumentException.class, () -> objectForTest.createRacers(startFileListForExample, endFileListForExample, abbreviationsFileListForExample));
     }
 
     @Test
@@ -160,7 +157,7 @@ class RacerBuilderTest {
         abbreviationsFileListForExample.add("SVF_Sebastian Vettel_FERRARI");
         abbreviationsFileListForExample.add("RENAULT_Nico Hulkenberg_NHR");
 
-        assertThrows(IllegalArgumentException.class, () -> startValuesForCreateRacersTest.createRacers(startFileListForExample, endFileListForExample, abbreviationsFileListForExample));
+        assertThrows(IllegalArgumentException.class, () -> objectForTest.createRacers(startFileListForExample, endFileListForExample, abbreviationsFileListForExample));
     }
 
 }

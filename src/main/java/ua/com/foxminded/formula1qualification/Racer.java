@@ -49,14 +49,7 @@ public class Racer implements Comparable<Racer> {
     @Override
     public int compareTo(Racer racer) {
 
-        if (this.getBestTime().toMillis() == racer.getBestTime().toMillis())
-            return 0;
-        else {
-            if (this.getBestTime().toMillis() < racer.getBestTime().toMillis())
-                return -1;
-            else
-                return 1;
-        }
+        return Long.compare(this.getBestTime().toMillis(), racer.getBestTime().toMillis());
     }
 
     @Override
@@ -71,7 +64,6 @@ public class Racer implements Comparable<Racer> {
     public int hashCode() {
         return Objects.hash(abbreviations, name, auto, startTime, endTime, bestTime);
     }
-
 
 }
 

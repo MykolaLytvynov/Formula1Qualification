@@ -4,7 +4,7 @@ package ua.com.foxminded.formula1qualification;
 import java.io.IOException;
 import java.util.List;
 
-public class Q1Stage {
+public class Q1StageResultCreator {
 
 
     public String getResultQ1Stage(String pathToStartFile, String pathToEndFile, String pathToAbbreviationsFile) throws IOException {

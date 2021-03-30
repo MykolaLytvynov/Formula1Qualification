@@ -2,28 +2,20 @@ package ua.com.foxminded.formula1qualification;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 
-class Q1StageTest {
-    Q1Stage startValuesForGetResultQ1StageTest;
+class Q1StageResultCreatorTest {
+    Q1StageResultCreator objectForTest = new Q1StageResultCreator();
 
-    @BeforeEach
-    void newObjectForGetResultQ1StageTest() {
-        startValuesForGetResultQ1StageTest = new Q1Stage();
-    }
 
     @Test
     @DisplayName("Required files are specified")
     void getResultQ1StageShouldReturnStringAsInExampleWhenWhenRequiredFilesAreSpecifie() throws IOException {
-        assertEquals("1. Sebastian Vettel  | FERRARI                   | 01:04.415\n" +
+        String expected = "1. Sebastian Vettel  | FERRARI                   | 01:04.415\n" +
                 "2. Daniel Ricciardo  | RED BULL RACING TAG HEUER | 01:12.013\n" +
                 "3. Valtteri Bottas   | MERCEDES                  | 01:12.434\n" +
                 "4. Lewis Hamilton    | MERCEDES                  | 01:12.460\n" +
@@ -42,7 +34,11 @@ class Q1StageTest {
                 "16. Brendon Hartley  | SCUDERIA TORO ROSSO HONDA | 01:13.179\n" +
                 "17. Marcus Ericsson  | SAUBER FERRARI            | 01:13.265\n" +
                 "18. Lance Stroll     | WILLIAMS MERCEDES         | 01:13.323\n" +
-                "19. Kevin Magnussen  | HAAS FERRARI              | 01:13.393", startValuesForGetResultQ1StageTest.getResultQ1Stage("start.log", "end.log", "abbreviations.txt"));
+                "19. Kevin Magnussen  | HAAS FERRARI              | 01:13.393";
+
+        String result = objectForTest.getResultQ1Stage("start.log", "end.log", "abbreviations.txt");
+
+        assertEquals(expected, result);
     }
 
 }
